@@ -1,0 +1,22 @@
+body{
+    background-color: #0f121f;
+    background-image: url(https://wallpaperaccess.com/full/29003.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+h1 {
+    padding-top: 20px;
+    position: center;
+    text-align: center;
+    font-family: Arial, fantasy;
+    color: white;
+}
+
+div{
+    text-align: center;
+    position: center;
+    margin-inside: 30px;
+
+}

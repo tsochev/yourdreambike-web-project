@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <div class="row justify-content-center">
+        <div class="d-flex">
+            <div class="d-inline p-2 w-50">
+                {% if not profile.image %}
+                    <img src="{% static 'images/blank-profile-picture.png' %}"
+                         class="w-50 rounded mx-auto d-block" alt="description">
+                {% else %}
+                    <img src="{{ profile.image.url }}"
+                         class="w-50 rounded mx-auto d-block" alt="description">
+                {% endif %}
+            </div>
+            <div class="d-inline p-2 w-50">
+                <div class="d-flex flex-column">
+                    <h5><u>Name:</u> {{ profile.first_name }} {{ profile.last_name }}</h5>
+
+                    {% if profile.date_of_birth %}
+                        <h5><u>Birthdate:</u> {{ profile.date_of_birth }}</h5>
+                    {% endif %}
+                    {% if profile.email %}
+                        <h5><u>Email:</u> {{ profile.email }}</h5>
+                    {% endif %}
+                    {#                    {% if profile.gender %}#}
+                    {#                        <!-- If Gender is Chosen -->#}
+                    {#                        <h5><u>Gender:</u> {{ profile.gender }}</h5>#}
+                    {#                    {% endif %}#}
+                    {% if profile.description %}
+                        <h5><u>Description:</u> {{ profile.description }}</h5>
+                    {% endif %}
+                </div>
+
+                {% if is_owner %}
+                    <a href="{% url 'profile edit' profile.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'profile delete' profile.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}
+
+{% block bottom_page_content %}
+    <h2 class="text-center">My Bikes</h2>
+    <br>
+    {#    <div class="container mb-4">#}
+    {#        <div class="d-flex justify-content-start mb-5">#}
+    <div class="container mb-5">
+        <div class="row mb-5">
+            {% for bike in bikes %}
+
+                <div class="col-lg-4">
+                    <img src="{{ bike.image.url }}" class="card-img-top" alt="photo descr">
+                    <div class="box-element product">
+                        <h5>{{ bike.user.first_name }}</h5>
+                        <h5><strong>Model: </strong>{{ bike.name }}</h5>
+                    </div>
+                    <div class="box-element product">
+                        <h6><strong>Type: </strong>{{ bike.type }}</h6>
+                        <h6><strong>Desc: </strong>{{ bike.description }}</h6>
+                        {#                            <h6>{{ bike.user.profile.full_name }}</h6>#}
+
+                    </div>
+                    {% if is_owner %}
+                        <div class="box-element product">
+                            <a href="{% url 'edit bike' bike.pk %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete bike' bike.pk %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

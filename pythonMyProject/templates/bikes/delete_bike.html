@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block page_content %}
+        <h1 class="text-center">Delete bike</h1>
+    <form action="{% url 'delete bike' bike.pk %}" method="post" enctype="multipart/form-data" align="center">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Delete" class="btn btn-secondary">
+    </form>
+    {#    <button class="btn btn-primary mt-2" type="submit">Create</button>#}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <h1 class="text-center">
+        Current Bikes for Sale
+    </h1>
+    <br>
+
+    {% if sell_bikes %}
+        <div class="container mb-5">
+            <div class="row mb-5">
+                {% for bike in sell_bikes %}
+                    <div class="col-lg-4">
+                        <img src="{{ bike.image.url }}" class="card-img-top" alt="photo descr">
+                        <div class="box-element product">
+                            <h5><strong>Model: </strong>{{ bike.name }}</h5>
+                        </div>
+                        <div class="box-element product">
+                            <h6><strong>Type: </strong>{{ bike.type }}</h6>
+                            <h6><strong>Frame: </strong>{{ bike.frame }}</h6>
+                            <h6><strong>Fork: </strong>{{ bike.fork }}</h6>
+                            <h6><strong>Rear Shock: </strong>{{ bike.rear_shock }}</h6>
+                            <h6><strong>Breaks: </strong>{{ bike.brakes }}</h6>
+                            <h6><strong>Drivetrain: </strong>{{ bike.drivetrain }}</h6>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn">Add to cart</button>
+                            {#                            <a class="btn btn-outline-success" href="#">View</a>#}
+                            <h4 style="display: inline-block;float: right">${{ bike.price|floatformat:2 }}</h4>
+
+                        </div>
+                        {% if user.is_staff %}
+                            <div class="box-element product">
+                                <a style="margin-left: 80px" href="{% url 'edit bike' bike.pk %}" class="btn btn-secondary">Edit</a>
+                                <a style="margin-left: 30px" href="{% url 'delete bike' bike.pk %}" class="btn btn-secondary">Delete</a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

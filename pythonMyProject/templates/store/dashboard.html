@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{#<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">#}
+
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+    <br>
+    <p align="center">
+        <a href="{% url 'create bike' %}" class="btn btn-lg btn-secondary">Write post</a>
+    </p>
+    <br>
+    <h1 class="text-left">
+        {#        {% if created_bikes %}#}
+        Recent Blog Posts
+    </h1>
+    <br>
+
+    {% if bikes %}
+        <div class="container">
+            <div class="row">
+                {% for bike in bikes %}
+
+                    {#                <div class="col-lg-4" style="width: 18rem;">#}
+                    {#                    <img src="{{ created_bike.image.url }}"#}
+                    {#                         class="card-img-top" alt="photo descr">#}
+                    {#                </div>#}
+                    {#                    <div>#}
+                    {#                        {{ created_bike.name }}#}
+                    {#                    </div>#}
+                    <div class="col-lg-4">
+                        <img src="{{ bike.image.url }}" class="card-img-top" alt="photo descr">
+                        <div class="box-element product">
+                            {#                            <a href="{% url 'edit pet' pet.pk %}" class="btn btn-primary">Edit</a>#}
+                            <h5><strong>Posted by: </strong> <a href="{% url 'profile details' bike.user.id %}"
+                                                                class="button">{{ bike.user.profile.full_name }}</a>
+                            </h5>
+                            <h5><strong>Model: </strong>{{ bike.name }}</h5>
+                        </div>
+                        <div class="box-element product">
+                            <h6><strong>Type: </strong>{{ bike.type }}</h6>
+                            <h6><strong>Desc: </strong>{{ bike.description }}</h6>
+
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+{#    {% else %}#}
+{#        <div class="container">#}
+{#            <h1 class="text-center">#}
+                {#        {% if created_bikes %}#}
+{#                There aren't posted bikes.#}
+{#            </h1>#}
+{#        </div>#}
+    {% endif %}
+    <br>
+    <p align="center">
+        <a href="{% url 'posted bikes' %}" class="btn btn-lg btn-secondary">All blog posts</a>
+    </p>
+    <br>
+{% endblock %}
+
+{% block bottom_page_content %}
+    <h1 class="text-left">
+        {#        {% if created_bikes %}#}
+        Current Bikes for Sale
+    </h1>
+    <br>
+
+    {% if sell_bikes %}
+        <div class="container mb-5">
+            <div class="row mb-5">
+                {% for bike in sell_bikes %}
+                    <div class="col-lg-4">
+                        <img src="{{ bike.image.url }}" class="card-img-top" alt="photo descr">
+                        <div class="box-element product">
+                            <h5><strong>Model: </strong>{{ bike.name }}</h5>
+                        </div>
+                        <div class="box-element product">
+                            <h6><strong>Type: </strong>{{ bike.type }}</h6>
+                            <h6><strong>Frame: </strong>{{ bike.frame }}</h6>
+                            <h6><strong>Fork: </strong>{{ bike.fork }}</h6>
+                            <h6><strong>Rear Shock: </strong>{{ bike.rear_shock }}</h6>
+                            <h6><strong>Breaks: </strong>{{ bike.brakes }}</h6>
+                            <h6><strong>Drivetrain: </strong>{{ bike.drivetrain }}</h6>
+                            <hr>
+                            <button data-bike={{ bike.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
+{#                            <a class="btn btn-outline-success" href="#">View</a>#}
+                            <h4 style="display: inline-block;float: right">${{ bike.price|floatformat:2 }}</h4>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% endif %}
+    <br>
+    <p align="center">
+        <a href="{% url 'bikes for sale' %}" class="btn btn-lg btn-secondary">All bikes for sale</a>
+    </p>
+
+{% endblock %}
