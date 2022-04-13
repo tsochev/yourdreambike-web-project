@@ -23,7 +23,6 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('product', 'order_id', 'quantity', 'date_added', )
 
 
-
 @admin.register(ShippingAddress)
 class ShippingAddressAdmin(admin.ModelAdmin):
     # list_display = ('customer', 'order', 'address', 'city', 'country', 'zipcode', 'date_added', )

@@ -1,4 +1,4 @@
-from django.contrib import messages
+
 from django.contrib.auth import get_user_model, logout, login
 
 from django.contrib.auth import views as auth_views
@@ -40,7 +40,7 @@ def logout_view(request):
     return redirect('home')
 
 
-class DetailsProfileView(views.DetailView):
+class DetailsProfileView(LoginRequiredMixin, views.DetailView):
     model = Profile
     template_name = 'account/profile_details.html'
     context_object_name = 'profile'
@@ -72,7 +72,7 @@ class DetailsProfileView(views.DetailView):
         return context
 
 
-class EditProfileView(views.UpdateView):
+class EditProfileView(LoginRequiredMixin, views.UpdateView):
     model = Profile
     template_name = 'account/profile_edit.html'
     fields = ('first_name', 'last_name', 'date_of_birth', 'description', 'image',)
@@ -86,11 +86,12 @@ class EditProfileView(views.UpdateView):
     #     context['first_name'] = 'first_name'
 
 
-class DeleteProfileView(views.DeleteView):
+class DeleteProfileView(LoginRequiredMixin, views.DeleteView):
+    # the model should be change to UserModel
     model = AppUser
     template_name = 'account/profile_delete.html'
     success_url = reverse_lazy('home')
 
 
-class ChangePasswordProfileView(auth_views.PasswordChangeView):
+class ChangePasswordProfileView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'account/profile_change_password.html'

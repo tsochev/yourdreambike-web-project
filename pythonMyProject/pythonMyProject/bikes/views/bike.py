@@ -1,12 +1,17 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 from django.views import generic as views
 
 from pythonMyProject.bikes.forms import CreateBikesForm, SellBikeCreateForm, EditBikeForm, DeleteBikeForm
 from pythonMyProject.bikes.models import Bike
+from pythonMyProject.common.mixins import StaffPermissionsMixin
 
 
-class SellBikeView(views.CreateView):
+class SellBikeView(LoginRequiredMixin, StaffPermissionsMixin, views.CreateView):
+
+    permission_required = ['bikes.add_sellbike']
+
     form_class = SellBikeCreateForm
     template_name = 'bikes/sell_bike.html'
     success_url = reverse_lazy('dashboard')
@@ -17,7 +22,10 @@ class SellBikeView(views.CreateView):
         return kwargs
 
 
-class CreateBikeView(views.CreateView):
+class CreateBikeView(LoginRequiredMixin, StaffPermissionsMixin, views.CreateView):
+
+    permission_required = ['bikes.add_bike']
+
     form_class = CreateBikesForm
     template_name = 'bikes/create_bike.html'
     success_url = reverse_lazy('dashboard')
@@ -28,7 +36,10 @@ class CreateBikeView(views.CreateView):
         return kwargs
 
 
-class EditBikeView(views.UpdateView):
+class EditBikeView(LoginRequiredMixin, StaffPermissionsMixin, views.UpdateView):
+
+    permission_required = ['bikes.change_bike']
+
     model = Bike
     template_name = 'bikes/edit_bike.html'
     fields = ('name', 'type', 'description', 'image', )
@@ -37,7 +48,10 @@ class EditBikeView(views.UpdateView):
         return reverse_lazy('profile details', kwargs={'pk': self.object.user_id})
 
 
-class DeleteBikeView(views.DeleteView):
+class DeleteBikeView(LoginRequiredMixin, StaffPermissionsMixin, views.DeleteView):
+
+    permission_required = ['bikes.delete_bike']
+
     model = Bike
     template_name = 'bikes/delete_bike.html'
     fields = '__all__'

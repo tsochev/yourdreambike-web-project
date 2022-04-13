@@ -23,8 +23,8 @@
                     <div class="col-lg-4">
                         <img src="{{ bike.image.url }}" class="card-img-top" alt="photo descr">
                         <div class="box-element product">
-                            {#                            <a href="{% url 'edit pet' pet.pk %}" class="btn btn-primary">Edit</a>#}
-                            <h5><strong>Shared by: </strong> <a href="{% url 'profile details' bike.user.id %}"
+
+                            <h5><strong>Posted by: </strong> <a href="{% url 'profile details' bike.user.id %}"
                                                                 class="button">{{ bike.user.profile.full_name }}</a>
                             </h5>
                             <h5><strong>Model: </strong>{{ bike.name }}</h5>
@@ -36,8 +36,8 @@
 
                         {% if user.is_staff %}
                         <div class="box-element product">
-                                <a href="{% url 'edit bike' bike.pk %}" class="btn btn-primary">Edit</a>
-                                <a href="{% url 'delete bike' bike.pk %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'edit bike' bike.pk %}" class="btn btn-lg btn-secondary">Edit</a>
+                                <a href="{% url 'delete bike' bike.pk %}" class="btn btn-lg btn-secondary">Delete</a>
                         </div>
                         {% endif %}
 
@@ -48,3 +48,4 @@
         </div>
     {% endif %}
 {% endblock %}
+

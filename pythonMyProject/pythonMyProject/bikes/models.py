@@ -206,8 +206,6 @@ class OrderItem(models.Model):
         auto_now_add=True,
     )
 
-    # def __str__(self):
-    #     return str(self.order.id)
     @property
     def order_id(self):
         return self.order.id

@@ -17,6 +17,8 @@ urlpatterns = [
     path('bikes/', include('pythonMyProject.bikes.urls')),
     # path('back/', TemplateView.as_view(template_name='background.html'), name='view'),
 
+    path('404_error/', TemplateView.as_view(template_name='404_error.html'), name='404 error')
+
     # path('', TemplateView.as_view(template_name='base.html'), name='index'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

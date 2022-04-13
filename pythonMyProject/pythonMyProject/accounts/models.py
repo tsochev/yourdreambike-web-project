@@ -69,6 +69,8 @@ class Profile(models.Model):
 
     image = models.ImageField(
         upload_to='profile_pic',
+        null=True,
+        blank=True,
     )
 
     user = models.OneToOneField(
