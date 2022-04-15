@@ -2,7 +2,7 @@ from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase, RequestFactory
-
+from django.urls import reverse
 
 from pythonMyProject.accounts.models import Profile
 from pythonMyProject.bikes.models import Bike, SellBike
@@ -134,7 +134,6 @@ class PostBikesViewTests(TestCase):
 
 
 class BikesForSaleViewTests(TestCase):
-
     def setUp(self):
         self.factory = RequestFactory()
         self.user = UserModel.objects.create(
@@ -146,7 +145,6 @@ class BikesForSaleViewTests(TestCase):
             first_name='Ivan',
             last_name='Test2',
             user=self.user,
-
         )
 
     def test_when_render_the_correct_template(self):
@@ -176,5 +174,24 @@ class BikesForSaleViewTests(TestCase):
 
         self.assertEqual(0, len(response.context_data['sell_bikes']))
 
+
+class EditBikeViewTests(TestCase):
+    VALID_BIKE_CREDENTIALS = {
+        'name': 'Santa',
+        'type': 'Enduro',
+        'description': 'bike',
+        'image': 'bike.jpg',
+    }
+
+    VALID_USER_CREDENTIALS = {
+        'email': 'test@test.com',
+        'password': '123456',
+
+    }
+
+    def test_if_edit_description_is_correctly(self):
+        bike = Bike(**self.VALID_BIKE_CREDENTIALS)
+        bike.description = 'Badbike'
+        self.assertEqual('Badbike', bike.description)
 
 

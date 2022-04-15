@@ -126,11 +126,29 @@ class DetailsProfileViewTests(TestCase):
 
         self.assertTemplateUsed('account/profile_details.html')
 
-    # def test_bikes_set_in_context(self):
-    #     request = self.factory.get('profile/', kwargs={'pk': self.profile.pk})
-    #     response = DetailsProfileView.as_view()(request)
-    #
-    #     self.assertEqual(len(response.context_data['bikes']), 1)
+
+class UserRegistrationViewTests(TestCase):
+    VALID_USER_CREDENTIALS = {
+        'email': 'test@test.com',
+        'password': '123456',
+
+    }
+
+    def test_when_create_profile__expect_to_create(self):
+        user = self.client.post(reverse('dashboard'), data=self.VALID_USER_CREDENTIALS)
+        profile = UserModel.objects
+        self.assertIsNotNone(profile)
+
+    def test_if_user_is_logged_in__expect_to_be_authenticated(self):
+        user = UserModel.objects.create_user(**self.VALID_USER_CREDENTIALS)
+        self.client.login(**self.VALID_USER_CREDENTIALS)
+        self.assertTrue(user.is_authenticated)
+
+    def test_after_logged_in_render_dashboard__expect_success(self):
+        user = UserModel.objects.create_user(**self.VALID_USER_CREDENTIALS)
+        self.client.login(**self.VALID_USER_CREDENTIALS)
+        request = self.client.get(reverse('dashboard'))
+        self.assertEqual(request.status_code, 200)
 
 
 

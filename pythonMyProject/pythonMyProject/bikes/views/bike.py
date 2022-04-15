@@ -29,6 +29,7 @@ class EditBikeView(LoginRequiredMixin, StaffPermissionsMixin, views.UpdateView):
     template_name = 'bikes/edit_bike.html'
     fields = ('name', 'type', 'description', 'image',)
 
+
     def get_success_url(self):
         return reverse_lazy('profile details', kwargs={'pk': self.object.user_id})
 

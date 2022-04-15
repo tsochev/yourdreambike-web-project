@@ -30,6 +30,7 @@ class EditBikeForm(BootstrapFormMixin, forms.ModelForm):
         exclude = ('user', )
 
 
+
 class DeleteBikeForm(BootstrapFormMixin, DisableFieldsFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
