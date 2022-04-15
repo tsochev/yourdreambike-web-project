@@ -4,26 +4,6 @@ from pythonMyProject.bikes.models import Bike, SellBike
 from pythonMyProject.common.helpers import BootstrapFormMixin, DisableFieldsFormMixin
 
 
-class SellBikeCreateForm(BootstrapFormMixin, forms.ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.user = user
-        self._init_bootstrap_form_control()
-
-    def save(self, commit=True):
-        sell_bike = super().save(commit=False)
-
-        sell_bike.user = self.user
-        if commit:
-            sell_bike.save()
-
-        return sell_bike
-
-    class Meta:
-        model = SellBike
-        exclude = ('user', )
-
-
 class CreateBikesForm(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -62,5 +42,25 @@ class DeleteBikeForm(BootstrapFormMixin, DisableFieldsFormMixin, forms.ModelForm
 
     class Meta:
         model = Bike
+        exclude = ('user', )
+
+
+class SellBikeCreateForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self._init_bootstrap_form_control()
+
+    def save(self, commit=True):
+        sell_bike = super().save(commit=False)
+
+        sell_bike.user = self.user
+        if commit:
+            sell_bike.save()
+
+        return sell_bike
+
+    class Meta:
+        model = SellBike
         exclude = ('user', )
 

@@ -15,12 +15,12 @@ class SellBikeAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'complete', 'transaction_id', 'date_ordered')
+    list_display = ('customer', 'complete', 'transaction_id', 'date_ordered', 'id')
 
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('product', 'order_id', 'quantity', 'date_added', )
+    list_display = ('product', 'product_id', 'quantity', 'date_added', 'order_id')
 
 
 @admin.register(ShippingAddress)

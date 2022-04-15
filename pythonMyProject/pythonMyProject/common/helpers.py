@@ -1,4 +1,5 @@
 from django import forms
+from django.shortcuts import render
 
 
 class BootstrapFormMixin:
@@ -28,3 +29,7 @@ class DisableFieldsFormMixin:
                 field.widget.attrs['disabled'] = 'disabled'
             else:
                 field.widget.attrs['readonly'] = 'readonly'
+
+
+def error_404(request, exception):
+    return render(request, '403_no_permission.html')

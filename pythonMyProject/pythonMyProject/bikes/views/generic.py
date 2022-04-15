@@ -91,11 +91,20 @@ class BikesForSale(LoginRequiredMixin, views.ListView):
 
         sell_bikes = SellBike.objects.all().order_by('-date_created')
 
-        cart_items = 0
-        if self.request.user.is_authenticated:
-            customer = self.request.user.id
+        # customer = self.request.user.id
+        # order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        # cart_items = order.get_cart_items
+
+        customer = self.request.user.id
+        cust_order = Order.objects.filter(customer_id=customer)
+        if len(cust_order) > 0:
+            # if self.request.user.is_authenticated:
+
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
             cart_items = order.get_cart_items
+        else:
+
+            cart_items = 0
 
         context.update({
             'sell_bikes': sell_bikes,
@@ -103,4 +112,5 @@ class BikesForSale(LoginRequiredMixin, views.ListView):
         })
 
         return context
+
 

@@ -44,10 +44,7 @@ class Bike(models.Model):
 
     description = models.TextField()
 
-    image = models.ImageField(
-        null=True,
-        blank=True,
-    )
+    image = models.ImageField()
 
     date_created = models.DateTimeField(
         auto_now_add=True,
@@ -169,6 +166,10 @@ class Order(models.Model):
     )
 
     @property
+    def order_id(self):
+        return Order.objects.get(id=id)
+
+    @property
     def get_cart_total(self):
         order_items = self.orderitem_set.all()
         total = sum([item.get_total for item in order_items])
@@ -194,6 +195,7 @@ class OrderItem(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
+
     )
 
     quantity = models.IntegerField(
@@ -205,6 +207,10 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(
         auto_now_add=True,
     )
+
+    @property
+    def product_id(self):
+        return self.product.id
 
     @property
     def order_id(self):
